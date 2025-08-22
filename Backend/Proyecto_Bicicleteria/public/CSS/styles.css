@@ -1,0 +1,149 @@
+/* =========================================================
+🎨 PALETA DE COLORES (variables globales)
+========================================================= */
+:root {
+    --color-principal: #2e7d32;
+    /* Verde corporativo */
+    --color-secundario: #ffffff;
+    /* Blanco */
+    --color-texto: #333333;
+    /* Gris oscuro */
+    --color-borde: #e9ecef;
+    /* Gris claro para bordes */
+}
+
+/* =========================================================
+🌐 LAYOUT GENERAL
+========================================================= */
+.app-navbar {
+    background-color: var(--color-principal) !important;
+}
+
+.app-footer {
+    background: #111;
+    color: #fff;
+}
+
+/* =========================================================
+🖋️ TIPOGRAFÍA Y COLORES GENERALES
+========================================================= */
+body {
+    background-color: var(--color-secundario);
+    color: var(--color-texto);
+}
+
+/* =========================================================
+🔘 BOTONES
+========================================================= */
+/* Botón reutilizable “verde corporativo” */
+.btn-custom {
+    background-color: var(--color-principal);
+    color: #fff;
+    border: none;
+}
+
+.btn-custom:hover {
+    filter: brightness(0.9);
+}
+
+/* Botón de volver */
+a.btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: var(--color-principal);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.3s;
+}
+
+a.btn:hover {
+    background-color: #1b5e20;
+}
+
+/* =========================================================
+📊 TABLAS
+========================================================= */
+.table thead {
+    background: #e8f5e9;
+    /* Verde muy claro */
+}
+
+.table td,
+.table th {
+    vertical-align: middle;
+    border-color: var(--color-borde);
+}
+
+/* Tabla de pedidos */
+.tabla.pedidos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tabla.pedidos th {
+    background-color: var(--color-principal);
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.tabla.pedidos td {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Stock bajo → rojo */
+.tabla.pedidos tr td:nth-child(3) {
+    font-weight: bold;
+    color: #c62828;
+}
+
+/* Cantidad a pedir → amarillo resaltado */
+.tabla.pedidos tr td:nth-child(5) {
+    font-weight: bold;
+    background: #fff59d;
+    /* Amarillo suave */
+    color: #333;
+    border-radius: 4px;
+}
+
+/* =========================================================
+🖼️ FONDOS POR SECCIÓN
+========================================================= */
+.body-productos {
+    /* Ejemplo con imagen (ajusta la ruta según tu carpeta) */
+    background: url('../imagenes/fondos/productos.jpg') center/cover no-repeat fixed;
+}
+
+/* =========================================================
+📦 CARDS / FORMULARIOS
+========================================================= */
+.card {
+    border: 1px solid var(--color-borde);
+    border-radius: 10px;
+}
+
+/* =========================================================
+📌 ESTILOS ADICIONALES (mensajes, subtítulos, etc.)
+========================================================= */
+.subtitulo {
+    color: var(--color-principal);
+    font-size: 18px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.mensaje-ok {
+    text-align: center;
+    color: var(--color-principal);
+    font-weight: bold;
+    background: #e8f5e9;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
