@@ -1,0 +1,1531 @@
+/* ===============================
+   Base / Layout
+   =============================== */
+
+html {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #111;
+    background: transparent;
+}
+
+/* Full-viewport background applied to html so it always covers */
+html {
+    background: url("/Proyecto/public/imagenes/fondo.jpg") center/cover fixed no-repeat;
+    background-color: #f3f3f3;
+}
+
+/* Main content grows to push footer down */
+.main-content {
+    flex: 1 0 auto;
+}
+
+/* Ensure footer does not shrink */
+.footer {
+    flex-shrink: 0;
+}
+
+/* Utility text */
+.ayuda-texto {
+    color: #7d6c6c;
+    font-style: italic;
+}
+
+.mensaje-error {
+    color: #dc3545;
+    font-weight: 600;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+/* ===============================
+   Header & Navigation
+   =============================== */
+
+.header {
+    background-color: rgba(11, 44, 77, 0.75);
+    padding: 12px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h2 {
+    margin: 0;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.menu-btn {
+    display: none;
+    font-size: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+.menu {
+    display: block;
+}
+
+.header .menu-panel {
+    display: flex;
+    gap: 25px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    align-items: left;
+}
+
+/* Footer visual improvements */
+.footer {
+    background-color: rgba(11, 44, 77, 0.75);
+    color: #fff;
+    padding: 16px 20px;
+    text-align: center;
+}
+
+.header .menu-panel a {
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.header .menu-panel a:hover {
+    color: #21fb00;
+    text-shadow: 0 0 10px #027e00;
+    text-decoration: underline wavy;
+}
+
+/* ===============================
+   Panels / Cards
+   =============================== */
+
+.form-panel,
+.productos-panel,
+.detalle-panel,
+.pedido-panel,
+.card-login,
+.card-register,
+.card-usuario {
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-panel {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #ffffffb4;
+}
+
+.form-panel h1 {
+    text-align: center;
+    color: #0b2c4d;
+    margin-bottom: 25px;
+}
+
+.productos-panel {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffffbb;
+}
+
+.productos-panel h1 {
+    color: #0b2c4d;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.detalle-panel {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffffca;
+}
+
+.detalle-panel h1 {
+    color: #0b2c4d;
+    margin-bottom: 20px;
+}
+
+.pedido-panel {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffffcc;
+    border-radius: 12px;
+}
+
+.pedido-panel h1 {
+    text-align: center;
+    color: #0b2c4d;
+    margin-bottom: 25px;
+}
+
+/* Small reusable cards */
+.card-login,
+.card-register {
+    max-width: 400px;
+    padding: 50px;
+    margin: 10rem auto;
+    border: 1px solid #2e2828;
+    background-color: rgba(106, 175, 236, 0.704);
+}
+
+.card-login h1,
+.card-register h1 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.card-usuario {
+    max-width: 600px;
+    margin: 7rem auto;
+    padding: 50px;
+    background-color: rgba(199, 193, 128, 0.727);
+    border: 1px solid #2e2828;
+}
+
+/* ===============================
+   Forms
+   =============================== */
+
+.form-producto .campo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.form-producto label {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.form-producto input,
+.form-producto textarea,
+.form-producto select {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.form-producto textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* Field groups used elsewhere */
+.acciones-superior {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.acciones-superior input {
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.acciones-extra {
+    margin-bottom: 20px;
+}
+
+/* Small helpers */
+.separador {
+    margin: 25px 0;
+    border: none;
+    border-top: 1px solid #ccc;
+}
+
+/* ===============================
+   Productos usados / fila-producto
+   =============================== */
+
+/* Grid layout with explicit columns so cloning keeps structure */
+.fila-producto,
+.mantenimiento-panel .fila-producto {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 40px;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.fila-producto>select,
+.fila-producto>input {
+    width: 100%;
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Explicit placement (helps cloned nodes) */
+.fila-producto>select {
+    grid-column: 1 / 2;
+}
+
+.fila-producto>input[name="prod_cant[]"] {
+    grid-column: 2 / 3;
+}
+
+.fila-producto>input[name="prod_pu[]"] {
+    grid-column: 3 / 4;
+}
+
+.fila-producto>.btn-eliminar-row {
+    grid-column: 4 / 5;
+}
+
+.fila-producto .btn-eliminar-row {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+
+}
+
+.fila-producto .btn-eliminar-row svg {
+    width: 14px;
+    height: 14px;
+    stroke: #ffffff;
+}
+
+.fila-producto .btn-eliminar-row:hover {
+    background-color: #b02a37;
+}
+
+/* Small responsive fallback */
+@media (max-width:560px) {
+    .fila-producto {
+        grid-template-columns: 1fr;
+    }
+
+    .fila-producto>.btn-eliminar {
+        width: 40px;
+        height: 40px;
+        justify-self: flex-end;
+    }
+}
+
+/* General responsive rules for navigation and panels */
+@media (max-width: 768px) {
+    .menu-btn {
+        display: block;
+    }
+
+    .menu {
+        display: none;
+    }
+
+    .header .menu-panel {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+
+    .form-panel,
+    .productos-panel,
+    .detalle-panel,
+    .pedido-panel {
+        margin: 20px 12px;
+        padding: 18px;
+    }
+
+    .card-login,
+    .card-register,
+    .card-usuario {
+        margin: 4rem auto;
+        padding: 30px;
+    }
+}
+
+/* ===============================
+   Tables
+   =============================== */
+
+.tabla-productos,
+.tabla-pedido {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-productos th,
+.tabla-pedido th {
+    background-color: #0b2c4d;
+    color: #fff;
+    padding: 10px;
+}
+
+.tabla-productos td,
+.tabla-pedido td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.tabla-productos tr:hover,
+.tabla-pedido tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.tabla-pedido th,
+.tabla-pedido td {
+    padding: 12px;
+}
+
+/* Responsive tables: allow horizontal scroll on small screens */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Reduce padding and allow wrapping on small screens */
+@media (max-width: 768px) {
+
+    .tabla-productos th,
+    .tabla-productos td,
+    .tabla-pedido th,
+    .tabla-pedido td {
+        padding: 8px;
+        white-space: normal;
+    }
+
+    /* Optional: make action buttons smaller */
+    .btn {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+}
+
+/* ===============================
+   Buttons (base + variants)
+   =============================== */
+
+.btn {
+    padding: 8px 14px;
+    border-radius: 4px;
+    border: none;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-block;
+}
+
+/* Variants */
+.btn-buscar {
+    background-color: #0b2c4d;
+    color: #fff;
+}
+
+.btn-limpiar {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.btn-crear {
+    background-color: #198754;
+    color: #fff;
+}
+
+.btn-volver {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.btn-secundario {
+    background-color: #0dcaf0;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+/* Action style names used across views */
+.btn-editar {
+    background-color: #0dcaf0;
+    color: #000;
+    border-radius: 6px;
+    padding: 6px 12px;
+    margin: 2px;
+}
+
+.btn-editar:hover {
+    background-color: #0bb5d8;
+}
+
+.btn-eliminar {
+    background-color: #dc3545;
+    color: #fff;
+    border-radius: 6px;
+    padding: 6px 12px;
+    margin: 2px;
+}
+
+.btn-eliminar:hover {
+    background-color: #c82333;
+}
+
+.btn-guardar {
+    background-color: #198754;
+    color: #fff;
+    border-radius: 6px;
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-guardar:hover {
+    background-color: #157347;
+}
+
+.btn-cancelar {
+    background-color: #6c757d;
+    color: #fff;
+    border-radius: 6px;
+    padding: 6px 12px;
+}
+
+.btn-cancelar:hover {
+    background-color: #5a6268;
+}
+
+.btn-confirmar {
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 6px;
+    padding: 8px 16px;
+}
+
+.btn-confirmar:hover {
+    background-color: #218838;
+}
+
+/* Special small action class used in some tables */
+.accion {
+    margin: 0 5px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* ===============================
+   Status / States
+   =============================== */
+
+.estado {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.estado.pendiente {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.estado.en\ proceso {
+    background-color: #0d6efd;
+    color: #fff;
+}
+
+.estado.finalizado {
+    background-color: #198754;
+    color: #fff;
+}
+
+/* ===============================
+   Productos / Pedidos specific
+   =============================== */
+
+.productos-usados {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.pedido-info p {
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+.pedido-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+/* ===============================
+   Accordion
+   =============================== */
+
+.accordion {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.accordion-header {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border: none;
+    text-align: left;
+    font-size: 1.1em;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+
+.accordion-header:hover {
+    background-color: #0056b3;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease;
+    background-color: #f9f9f9;
+    border-radius: 0 0 8px 8px;
+    margin-bottom: 10px;
+    padding: 0 15px;
+}
+
+.accordion-content.activo {
+    max-height: 1000px;
+    padding: 15px;
+}
+
+/* ===============================
+   Footer
+   =============================== */
+
+.footer {
+    background-color: #0b2c4d;
+    color: #fff;
+    padding: 15px 20px;
+    margin-top: 60px;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
+
+.footer a {
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all .3s ease;
+}
+
+.footer a:hover {
+    color: #21fb00;
+    text-shadow: 0 0 8px #027e00;
+    text-decoration: underline wavy;
+}
+
+/* ===============================
+   Responsive (common breakpoints)
+   =============================== */
+
+@media (max-width: 768px) {
+    .footer {
+        font-size: 0.85rem;
+        padding: 20px 10px;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .menu {
+        display: none;
+        width: 100%;
+    }
+
+    .menu.menu-activo {
+        display: block;
+        margin-top: 15px;
+    }
+
+    .header .menu-panel {
+        flex-direction: column;
+        align-items: left;
+        background-color: #0b2c4d;
+        padding: 15px 0;
+    }
+
+    .header .menu-panel li {
+        margin-bottom: 15px;
+    }
+}
+
+/* Small-screen adjustments */
+@media (max-width: 560px) {
+    .fila-producto {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===============================
+   Misc / Safety
+   =============================== */
+
+/* ensure consistent box-sizing in controls */
+* {
+    box-sizing: border-box;
+}
+
+/* End of stylesheet */
+
+/* ===============================
+    FOOTER
+    =============================== */
+
+.footer {
+    background-color: #0b2c4d;
+    color: #ffffff;
+    padding: 15px 20px;
+    margin-top: 60px;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Texto */
+.footer p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
+
+/* Links del footer */
+.footer a {
+    color: #ffffff;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer a:hover {
+    color: #21fb00;
+    text-shadow: 0 0 8px #027e00;
+    text-decoration: underline wavy;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .footer {
+        font-size: 0.85rem;
+        padding: 20px 10px;
+    }
+}
+
+
+.card-login {
+    background-color: rgba(106, 175, 236, 0.704);
+    border: 1px solid #2e2828;
+    border-radius: 8px;
+    padding: 50px;
+    max-width: 400px;
+    margin: 10rem auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-login h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.card-login form {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-login a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.card-login a:hover {
+    transition: 0.6s;
+    color: #fcf806;
+    text-decoration: wavy underline;
+    font-weight: bold;
+}
+
+.card-login button {
+    background-color: #e6e9eb;
+    color: #1e1414;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.card-login button:hover {
+    transition: 0.6s;
+    background-color: #18ba48;
+    color: rgb(255, 255, 255);
+}
+
+/* Register */
+
+.card-register {
+    background-color: rgba(106, 175, 236, 0.704);
+    border: 1px solid #2e2828;
+    border-radius: 8px;
+    padding: 50px;
+    max-width: 400px;
+    margin: 10rem auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-register h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.card-register form {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-register a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.card-register button {
+    background-color: #e6e9eb;
+    color: #1e1414;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.card-register button:hover {
+    transition: 0.6s;
+    background-color: #18ba48;
+    color: rgb(255, 255, 255);
+}
+
+.card-register a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.card-register a:hover {
+    transition: 0.6s;
+    color: #fcf806;
+    text-decoration: wavy underline;
+    font-weight: bold;
+}
+
+/* Panel de Usuario */
+
+.card-usuario {
+    background-color: rgba(199, 193, 128, 0.727);
+    border: 1px solid #2e2828;
+    border-radius: 8px;
+    padding: 50px;
+    max-width: 600px;
+    margin: 7rem auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+.card-usuario h1 {
+    margin-bottom: 20px;
+    color: #111505;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.card-usuario p {
+    margin-top: 40px;
+    color: #000000;
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* panel de empleado listas */
+
+.accordion {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.accordion-header {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border: none;
+    outline: none;
+    text-align: left;
+    font-size: 1.1em;
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    transition: background-color 0.3s;
+}
+
+.accordion-header:hover {
+    background-color: #0056b3;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background-color: #f9f9f9;
+    border-radius: 0 0 8px 8px;
+    margin-bottom: 10px;
+    padding: 0 15px;
+}
+
+.accordion-content.activo {
+    max-height: 1000px;
+    /* ajusta según tu contenido */
+    padding: 15px;
+}
+
+
+/* Panel listar productos */
+
+.productos-panel {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffffbb;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.productos-panel h1 {
+    color: #0b2c4d;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* Barra superior */
+.acciones-superior {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.acciones-superior input {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+/* Botones */
+.btn {
+    padding: 8px 14px;
+    border-radius: 4px;
+    border: none;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-buscar {
+    background-color: #0b2c4d;
+    color: #fff;
+}
+
+.btn-limpiar {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.btn-crear {
+    background-color: #198754;
+    color: #fff;
+}
+
+.btn-volver {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.acciones-extra {
+    margin-bottom: 20px;
+}
+
+/* Tabla */
+.tabla-productos {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-productos th {
+    background-color: #0b2c4d;
+    color: #fff;
+    padding: 10px;
+}
+
+.tabla-productos td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.tabla-productos tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Acciones */
+.accion {
+    margin: 0 5px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.accion.editar {
+    color: #0d6efd;
+}
+
+.accion.eliminar {
+    color: #dc3545;
+}
+
+/* Error */
+.mensaje-error {
+    color: #dc3545;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* Fila de productos usada en mantenimientos */
+.mantenimiento-panel .fila-producto,
+.fila-producto {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 40px;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.fila-producto .prod-select {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.fila-producto input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.fila-producto .btn-eliminar {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    font-size: 0;
+}
+
+.fila-producto .btn-eliminar svg {
+    width: 14px;
+    height: 14px;
+    stroke: #ffffff;
+}
+
+.fila-producto .btn-eliminar:hover {
+    background-color: #b02a37;
+}
+
+/* Force explicit placement of controls inside the grid so cloned rows keep layout */
+.fila-producto>select {
+    grid-column: 1 / 2;
+}
+
+.fila-producto>input[name="prod_cant[]"] {
+    grid-column: 2 / 3;
+}
+
+.fila-producto>input[name="prod_pu[]"] {
+    grid-column: 3 / 4;
+}
+
+.fila-producto>.btn-eliminar {
+    grid-column: 4 / 5;
+}
+
+/* Ensure children fill their cells */
+.fila-producto>select,
+.fila-producto>input {
+    width: 100%;
+}
+
+/* Ajustes responsivos: apilar en pantallas pequeñas */
+@media (max-width: 560px) {
+    .fila-producto {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .fila-producto input[type="number"] {
+        width: 100%;
+    }
+
+    .fila-producto .btn-eliminar {
+        width: 40px;
+        height: 40px;
+        align-self: flex-end;
+    }
+}
+
+/* Panel editar Producto */
+
+/* formulario */
+.form-panel {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #ffffffb4;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Título */
+.form-panel h1 {
+    text-align: center;
+    color: #0b2c4d;
+    margin-bottom: 25px;
+}
+
+/* Campos */
+.form-producto .campo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.form-producto label {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.form-producto input,
+.form-producto textarea {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.form-producto textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Acciones */
+.acciones-form {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Botones */
+.btn-guardar {
+    background-color: #198754;
+    color: #fff;
+}
+
+.btn-cancelar {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+/* Error reutilizado */
+.mensaje-error {
+    color: #dc3545;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Panel listar Mantenimientos */
+
+.estado {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.estado.pendiente {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.estado.en\ proceso {
+    background-color: #0d6efd;
+    color: #fff;
+}
+
+.estado.finalizado {
+    background-color: #198754;
+    color: #fff;
+}
+
+/* Panel editar Mantenimiento */
+
+.mantenimiento-panel h3 {
+    margin-top: 20px;
+    color: #0b2c4d;
+}
+
+.separador {
+    margin: 25px 0;
+    border: none;
+    border-top: 1px solid #ccc;
+}
+
+/* Productos usados */
+.productos-usados {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+
+.fila-producto select,
+.fila-producto input {
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Botón secundario */
+.btn-secundario {
+    background-color: #0dcaf0;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+/* Panel ver Mantenimeinto */
+
+/* Panel de detalle */
+.detalle-panel {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffffca;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.detalle-panel h1 {
+    color: #0b2c4d;
+    margin-bottom: 20px;
+}
+
+/* Secciones */
+.detalle-seccion {
+    margin-bottom: 30px;
+}
+
+.detalle-seccion h3 {
+    color: #0b2c4d;
+    margin-bottom: 10px;
+}
+
+/* Texto de ayuda */
+.ayuda-texto {
+    color: #7d6c6c;
+    font-style: italic;
+}
+
+/* ===============================
+   HEADER + MENÚ
+   =============================== */
+
+.header {
+    background-color: #0b2c4d;
+    padding: 12px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+
+
+.header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Título */
+.header h2 {
+
+    margin: 0;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+/* Botón hamburguesa */
+.menu-btn {
+    display: none;
+    font-size: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+/* NAV */
+.menu {
+    display: block;
+}
+
+/* 🔥 MENÚ SOLO DEL HEADER */
+.header .menu-panel {
+    align-items: left;
+    display: flex;
+    gap: 25px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.header .menu-panel li {
+    margin: 0;
+}
+
+.header .menu-panel a {
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.header .menu-panel a:hover {
+    color: #21fb00;
+    text-shadow: 0 0 10px #027e00;
+    text-decoration: underline wavy;
+}
+
+
+/* ===============================
+   RESPONSIVE
+   =============================== */
+@media (max-width: 768px) {
+
+    .menu-btn {
+        display: block;
+    }
+
+    .menu {
+        display: none;
+        width: 100%;
+    }
+
+    .menu.menu-activo {
+        display: block;
+        margin-top: 15px;
+    }
+
+    .header .menu-panel {
+        flex-direction: column;
+        align-items: left;
+        background-color: #0b2c4d;
+        padding: 15px 0;
+    }
+
+    .header .menu-panel li {
+        margin-bottom: 15px;
+    }
+}
+
+/* Panel de detalle pedido */
+.pedido-panel {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffffcc;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.pedido-panel h1 {
+    text-align: center;
+    color: #0b2c4d;
+    margin-bottom: 25px;
+}
+
+.pedido-info p {
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+/* Tabla pedidos */
+.tabla-pedido {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.tabla-pedido th,
+.tabla-pedido td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.tabla-pedido th {
+    background-color: #0b2c4d;
+    color: #fff;
+    border-radius: 6px;
+}
+
+.tabla-pedido tbody tr:hover {
+    background-color: #f0f0f0;
+}
+
+/* Botones pedidos */
+.btn-editar {
+    background-color: #0dcaf0;
+    color: #000;
+    border-radius: 6px;
+    padding: 6px 12px;
+    text-decoration: none;
+    margin: 2px;
+}
+
+.btn-editar:hover {
+    background-color: #0bb5d8;
+}
+
+.btn-eliminar {
+    background-color: #dc3545;
+    color: #fff;
+    border-radius: 6px;
+    padding: 6px 12px;
+    text-decoration: none;
+    margin: 2px;
+}
+
+.btn-eliminar:hover {
+    background-color: #c82333;
+}
+
+/* Table delete button style (text link) - keep same visual as .btn-eliminar */
+.btn-eliminar-table {
+    background-color: #dc3545;
+    color: #fff;
+    border-radius: 6px;
+    padding: 6px 12px;
+    text-decoration: none;
+    margin: 2px;
+    display: inline-block;
+}
+
+.btn-eliminar-table:hover {
+    background-color: #c82333;
+}
+
+.btn-guardar {
+    background-color: #198754;
+    color: #fff;
+    border-radius: 6px;
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-guardar:hover {
+    background-color: #157347;
+}
+
+.btn-cancelar {
+    background-color: #6c757d;
+    color: #fff;
+    border-radius: 6px;
+    padding: 6px 12px;
+    text-decoration: none;
+}
+
+.btn-cancelar:hover {
+    background-color: #5a6268;
+}
+
+.btn-confirmar {
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 6px;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.btn-confirmar:hover {
+    background-color: #218838;
+}
+
+.pedido-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+/* .fila-producto position used earlier removed to keep consistent grid layout */
