@@ -12,7 +12,6 @@
     <div class="table-responsive">
     <table class="tabla-productos">
         <tr>
-            <th>ID</th>
             <th>Nombre</th>
             <th>Correo</th>
             <th>Rol</th>
@@ -20,7 +19,6 @@
         </tr>
         <?php foreach ($usuarios as $u): ?>
         <tr>
-            <td><?php echo htmlspecialchars($u['id']); ?></td>
             <td><?php echo htmlspecialchars($u['nombre']); ?></td>
             <td><?php echo htmlspecialchars($u['correo']); ?></td>
             <td><?php echo htmlspecialchars($u['rol']); ?></td>

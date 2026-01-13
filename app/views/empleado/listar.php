@@ -11,7 +11,7 @@
     <td><?php echo htmlspecialchars($m['id_clase']); ?></td>
     <td><?php echo $m['precio']; ?></td>
     <td><?php echo $m['estado']; ?></td>
-    <td><a href="index.php?page=mantenimientos&action=ver&id=<?php echo $m['id_mantenimiento']; ?>" class="btn btn-crear">Ver</a></td>
+    <td><a href="index.php?page=mantenimientos&action=ver&id=<?php echo $m['id_mantenimiento']; ?>" class="btn btn-ver">Ver</a></td>
   </tr>
     <?php endforeach; ?>
   </table>

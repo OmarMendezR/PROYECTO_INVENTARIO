@@ -10,7 +10,6 @@
     </p>
 </footer>
 
-<!-- JS GLOBAL -->
 <script src="/Proyecto/public/script.js"></script>
 </body>
 </html>

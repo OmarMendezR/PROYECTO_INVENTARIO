@@ -27,13 +27,24 @@ class PedidoController {
         }
 
         if (!$idPedido || !$pedido) {
-            $_SESSION['mensaje'] = "No hay pedidos activos.";
-            header('Location: index.php?page=admin');
-            exit;
+            // Si es admin, mostrar la vista de pedidos vacía (sin redirigir
+            // a admin) para evitar repetir la vista de inicio.
+            if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin') {
+                $pedido = [
+                    'id_pedido' => null,
+                    'fecha_pedido' => date('Y-m-d'),
+                    'estado' => 'pendiente',
+                    'total' => 0
+                ];
+                $detalle = [];
+            } else {
+                $_SESSION['mensaje'] = "No hay pedidos activos.";
+                header('Location: index.php?page=admin');
+                exit;
+            }
+        } else {
+            $detalle = $this->pedido->obtenerDetalle($idPedido);
         }
-
-
-        $detalle = $this->pedido->obtenerDetalle($idPedido);
 
         require __DIR__ . '/../views/pedidos/ver.php';
     }
@@ -104,8 +115,19 @@ class PedidoController {
 
         $this->pedido->cambiarEstado($idPedido, 'confirmado');
 
-        header("Location: index.php?page=pedidos&action=ver&id=$idPedido");
-        exit;
+        // Mensaje para feedback
+        $_SESSION['mensaje'] = "Pedido confirmado y stock actualizado.";
+
+        // Si el usuario es admin, redirigir al dashboard para que la
+        // lista de productos con stock bajo se actualice. Si no, volver
+        // a la vista del pedido.
+        if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin') {
+            header('Location: index.php?page=admin');
+            exit;
+        } else {
+            header("Location: index.php?page=pedidos&action=ver&id=$idPedido");
+            exit;
+        }
     }
 
     // Generar PDF del pedido

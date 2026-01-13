@@ -22,15 +22,10 @@
     <p><strong>Estado:</strong> <?= htmlspecialchars($m['estado']) ?></p>
     <p><strong>Fecha Ingreso:</strong> <?= htmlspecialchars($m['creado_at']) ?></p>
 
-    <hr>
-
-    <?php if ($_SESSION['rol'] === 'admin'): ?>
-        <h3>Acciones administrador</h3>
-        <a href="index.php?page=mantenimientos&action=editar&id=<?= $m['id_mantenimiento'] ?>" class="btn btn-editar">Editar</a>
-        <a href="index.php?page=mantenimientos&action=eliminar&id=<?= $m['id_mantenimiento'] ?>" class="btn btn-eliminar-table">Eliminar</a>
-    <?php endif; ?>
+    
 
     <?php if ($_SESSION['rol'] === 'empleado'): ?>
+        <hr>
        <h3>Actualizar estado</h3>
         <form method="POST" action="index.php?page=mantenimientos&action=cambiarEstado&id=<?= $m['id_mantenimiento'] ?>">
             <select name="estado">
@@ -38,7 +33,7 @@
                 <option value="listo_para_entregar" <?= $m['estado'] === 'listo_para_entregar' ? 'selected' : '' ?>>Listo para entregar</option>
                 <option value="entregado" <?= $m['estado'] === 'entregado' ? 'selected' : '' ?>>Entregado</option>
             </select>
-            <button type="submit">Guardar</button>
+            <button type="submit" class="btn btn-guardar">Guardar</button>
         </form>
     <?php endif; ?>
 

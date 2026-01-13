@@ -71,4 +71,18 @@
 
 </div>
 
+<!-- Pagination -->
+<?php if (!empty($totalPages) && $totalPages > 1): ?>
+    <div class="pagination" style="text-align:center; margin:20px 0;">
+        <?php
+            $params = $_GET;
+            for ($i = 1; $i <= $totalPages; $i++):
+                $params['p'] = $i;
+                $query = http_build_query($params);
+        ?>
+            <a href="index.php?<?= $query ?>" class="btn btn-pagina" style="margin:2px; <?= $i === $pageNum ? 'opacity:0.7; font-weight:700;' : '' ?>"><?= $i ?></a>
+        <?php endfor; ?>
+    </div>
+<?php endif; ?>
+
 <?php require __DIR__ . '/../layouts/footer.php'; ?>

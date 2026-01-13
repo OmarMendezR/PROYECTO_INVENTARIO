@@ -7,7 +7,7 @@
         <p style="color: red;"><?php echo htmlspecialchars($error); ?></p>
     <?php endif; ?>
 
-    <form method="POST" action="index.php?page=registro">
+    <form method="POST" action="index.php?page=registro" autocomplete="off">
         <label for="nombre">Nombre Completo:</label>
         <input type="text" id="nombre" name="nombre" placeholder="Nombre" required>
 
@@ -20,10 +20,9 @@
         <label for="rol">Rol:</label>
         <select name="rol" id="rol">
             <option value="empleado">Empleado</option>
-            <option value="admin">Administrador</option>
         </select>
         
-        <button type="submit">Registrarse</button>
+        <button type="submit" class="btn btn-registrarse">Registrarse</button>
     </form>
 
     <p>¿Ya tienes cuenta? <a href="index.php?page=login">Inicia sesión aquí</a></p>

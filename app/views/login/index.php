@@ -7,14 +7,14 @@
         <p style="color: red;"><?php echo htmlspecialchars($error); ?></p>
     <?php endif; ?>
 
-    <form method="POST" action="index.php?page=login">
+    <form method="POST" action="index.php?page=login" autocomplete="off">
         <label for="correo">Correo:</label>
         <input type="email" id="correo" name="correo" placeholder="Correo" required>
 
         <label for="password">Contraseña:</label>
         <input type="password" id="password" name="password" placeholder="Contraseña" required>
 
-        <button type="submit">Ingresar</button>
+        <button type="submit" class="btn btn-ingresar">Ingresar</button>
     </form>
 
     <p>¿No tienes cuenta? <a href="index.php?page=registro">Regístrate aquí</a></p>

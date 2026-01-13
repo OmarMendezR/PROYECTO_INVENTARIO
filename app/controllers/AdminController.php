@@ -81,7 +81,9 @@ class AdminController {
     // Mensaje con número de productos agregados
     $_SESSION['mensaje'] = "Se agregaron $contador producto(s) al pedido con éxito.";
 
-    header('Location: index.php?page=admin');
+    // Redirigir a la vista del pedido recién actualizado para que la
+    // interfaz muestre los cambios en la sección de pedidos.
+    header("Location: index.php?page=pedidos&action=ver&id={$idPedido}");
     exit;
     }
 

@@ -59,7 +59,7 @@ require __DIR__ . '/../layouts/header.php';
                 </td>
                 <td><?= htmlspecialchars($m['creado_at']) ?></td>
                 <td>
-                    <a href="index.php?page=mantenimientos&action=ver&id=<?= $m['id_mantenimiento'] ?>" class="btn btn-editar">Ver</a>
+                    <a href="index.php?page=mantenimientos&action=ver&id=<?= $m['id_mantenimiento'] ?>" class="btn btn-ver">Ver</a>
                     <a href="index.php?page=mantenimientos&action=editar&id=<?= $m['id_mantenimiento'] ?>" class="btn btn-editar">Editar</a>
                     <a href="index.php?page=mantenimientos&action=eliminar&id=<?= $m['id_mantenimiento'] ?>" class="btn btn-eliminar-table" onclick="return confirm('¿Seguro que deseas eliminar este mantenimiento?');">Eliminar</a>
                 </td>

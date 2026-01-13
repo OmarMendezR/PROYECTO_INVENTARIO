@@ -18,6 +18,55 @@ class Producto {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Obtener página de productos con límite/offset y búsqueda opcional.
+     * @param string|null $rol
+     * @param int $limit
+     * @param int $offset
+     * @param string $q
+     * @return array
+     */
+    public function obtenerPagina(?string $rol, int $limit, int $offset, string $q = ''): array {
+        $q = trim($q);
+        if ($rol === 'admin') {
+            $select = "*";
+        } else {
+            $select = "id_producto, nombre, descripcion, precio_venta, stock, stock_minimo";
+        }
+
+        if ($q !== '') {
+            $sql = "SELECT $select FROM productos WHERE nombre LIKE :term ORDER BY id_producto DESC LIMIT :limit OFFSET :offset";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(':term', '%'.$q.'%', PDO::PARAM_STR);
+        } else {
+            $sql = "SELECT $select FROM productos ORDER BY id_producto DESC LIMIT :limit OFFSET :offset";
+            $stmt = $this->pdo->prepare($sql);
+        }
+
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Contar productos totales (opcionalmente filtrando por búsqueda).
+     */
+    public function contarTotal(string $q = ''): int {
+        $q = trim($q);
+        if ($q !== '') {
+            $sql = "SELECT COUNT(*) FROM productos WHERE nombre LIKE :term";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(':term', '%'.$q.'%', PDO::PARAM_STR);
+            $stmt->execute();
+            return (int)$stmt->fetchColumn();
+        }
+
+        $sql = "SELECT COUNT(*) FROM productos";
+        $stmt = $this->pdo->query($sql);
+        return (int)$stmt->fetchColumn();
+    }
+
 
     public function obtenerPorId(int $id): ?array {
         $sql = "SELECT * FROM productos WHERE id_producto = :id LIMIT 1";
