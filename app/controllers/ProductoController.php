@@ -92,13 +92,25 @@ class ProductoController {
 
     public function eliminar($id) {
         $id = (int) $id;
+
         if ($this->producto->eliminar($id)) {
             header("Location: index.php?page=productos");
             exit;
         } else {
-            $error = "Error al eliminar el producto.";
+            $error = "❌ No se puede eliminar el producto porque está siendo usado en uno o más mantenimientos.";
             $rol = $_SESSION['rol'] ?? null;
-            $productos = $this->producto->obtenerTodos($rol);
+
+            // Mantener paginación y búsqueda
+            $q = trim($_GET['q'] ?? '');
+            $pageNum = max(1, (int)($_GET['p'] ?? 1));
+            $perPage = 10;
+            $total = $this->producto->contarTotal($q);
+            $totalPages = (int) max(1, ceil($total / $perPage));
+            if ($pageNum > $totalPages) $pageNum = $totalPages;
+            $offset = ($pageNum - 1) * $perPage;
+
+            $productos = $this->producto->obtenerPagina($rol, $perPage, $offset, $q);
+
             require __DIR__ . '/../views/productos/listar.php';
         }
     }

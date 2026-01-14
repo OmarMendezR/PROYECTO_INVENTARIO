@@ -134,26 +134,81 @@ class Mantenimiento {
         try {
             $this->pdo->beginTransaction();
 
-            $sql = "UPDATE mantenimientos 
-                    SET nombre_cliente = ?, contacto_cliente = ?, id_clase = ?, detalles = ?, precio = ?
-                    WHERE id_mantenimiento = ?";
+            /**
+             * 1️⃣ DEVOLVER STOCK ANTERIOR
+             */
+            $sqlPrev = "
+                SELECT id_producto, cantidad
+                FROM mantenimiento_productos
+                WHERE id_mantenimiento = ?
+            ";
+            $stmtPrev = $this->pdo->prepare($sqlPrev);
+            $stmtPrev->execute([$id]);
+            $anteriores = $stmtPrev->fetchAll(PDO::FETCH_ASSOC);
 
+            foreach ($anteriores as $p) {
+                $this->pdo->prepare("
+                    UPDATE productos
+                    SET stock = stock + ?
+                    WHERE id_producto = ?
+                ")->execute([$p['cantidad'], $p['id_producto']]);
+            }
+
+            /**
+             * 2️⃣ ACTUALIZAR DATOS DEL MANTENIMIENTO
+             */
+            $sql = "
+                UPDATE mantenimientos 
+                SET nombre_cliente = ?, contacto_cliente = ?, id_clase = ?, detalles = ?, precio = ?
+                WHERE id_mantenimiento = ?
+            ";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([$cliente, $contacto, $idClase, $detalles, $precio, $id]);
 
-            $sqlDel = "DELETE FROM mantenimiento_productos WHERE id_mantenimiento = ?";
-            $this->pdo->prepare($sqlDel)->execute([$id]);
+            /**
+             * 3️⃣ ELIMINAR PRODUCTOS ANTERIORES
+             */
+            $this->pdo->prepare("
+                DELETE FROM mantenimiento_productos
+                WHERE id_mantenimiento = ?
+            ")->execute([$id]);
 
+            /**
+             * 4️⃣ VALIDAR Y DESCONTAR NUEVOS PRODUCTOS
+             */
             foreach ($productos as $p) {
-                $sql2 = "INSERT INTO mantenimiento_productos 
-                         (id_mantenimiento, id_producto, cantidad, precio_unitario)
-                         VALUES (?, ?, ?, ?)";
-                $this->pdo->prepare($sql2)->execute([
-                    $id, 
-                    $p['id_producto'], 
-                    $p['cantidad'], 
+
+                $stmtStock = $this->pdo->prepare("
+                    SELECT stock
+                    FROM productos
+                    WHERE id_producto = ?
+                ");
+                $stmtStock->execute([$p['id_producto']]);
+                $stockActual = (int)$stmtStock->fetchColumn();
+
+                if ($stockActual < $p['cantidad']) {
+                    $this->pdo->rollBack();
+                    return false;
+                }
+
+                // Insertar producto
+                $this->pdo->prepare("
+                    INSERT INTO mantenimiento_productos
+                    (id_mantenimiento, id_producto, cantidad, precio_unitario)
+                    VALUES (?, ?, ?, ?)
+                ")->execute([
+                    $id,
+                    $p['id_producto'],
+                    $p['cantidad'],
                     $p['precio_unitario']
                 ]);
+
+                // Descontar stock
+                $this->pdo->prepare("
+                    UPDATE productos
+                    SET stock = stock - ?
+                    WHERE id_producto = ?
+                ")->execute([$p['cantidad'], $p['id_producto']]);
             }
 
             $this->pdo->commit();
@@ -164,6 +219,7 @@ class Mantenimiento {
             return false;
         }
     }
+
 
     public function cambiarEstado(int $id, string $estado): bool {
         $estadosValidos = ['en_proceso', 'listo_para_entregar', 'entregado'];

@@ -113,10 +113,16 @@ class Producto {
     }
 
     public function eliminar(int $id): bool {
-        $sql = "DELETE FROM productos WHERE id_producto = :id";
-        $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute([':id' => $id]);
+        try {
+            $sql = "DELETE FROM productos WHERE id_producto = :id";
+            $stmt = $this->pdo->prepare($sql);
+            return $stmt->execute([':id' => $id]);
+        } catch (PDOException $e) {
+            // Error por clave foránea (producto en uso)
+            return false;
+        }
     }
+
 
     public function actualizarStock(int $id, int $nuevoStock): bool {
         $sql = "UPDATE productos SET stock = :stock WHERE id_producto = :id";
