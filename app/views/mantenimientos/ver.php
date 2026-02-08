@@ -16,12 +16,12 @@
 
     <p><strong>Cliente:</strong> <?= htmlspecialchars($m['nombre_cliente']) ?></p>
     <p><strong>Contacto:</strong> <?= htmlspecialchars($m['contacto_cliente'] ?? '') ?></p>
+    <p><strong># Factura:</strong> <?= htmlspecialchars($m['num_factura'] ?? '') ?></p>
     <p><strong>Clase:</strong> <?= htmlspecialchars($m['clase'] ?? 'Sin clase') ?></p>
     <p><strong>Detalles:</strong><br><?= nl2br(htmlspecialchars($m['detalles'] ?? '')) ?></p>
     <p><strong>Precio:</strong> $<?= number_format($m['precio'] ?? 0, 0, ',', '.') ?></p>
     <p><strong>Estado:</strong> <?= htmlspecialchars($m['estado']) ?></p>
     <p><strong>Fecha Ingreso:</strong> <?= htmlspecialchars($m['creado_at']) ?></p>
-
     
 
     <?php if ($_SESSION['rol'] === 'empleado'): ?>

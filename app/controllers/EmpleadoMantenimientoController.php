@@ -56,6 +56,7 @@ class EmpleadoMantenimientoController {
             $idClase = (int)$_POST['id_clase'];
             $detalles = trim($_POST['detalles']);
             $precio = (float)($_POST['precio_total'] ?? 0);
+            $num_factura = trim($_POST['num_factura'] ?? '');
 
             // Productos
             $productos = [];
@@ -72,7 +73,7 @@ class EmpleadoMantenimientoController {
                 ];
             }
 
-            $id = $this->mantenimiento->crear($idEmpleado, $cliente, $contacto, $idClase, $detalles, $precio, $productos);
+            $id = $this->mantenimiento->crear($idEmpleado, $cliente, $contacto, $idClase, $detalles, $precio, $productos, $num_factura);
 
             if ($id) {
                 header('Location: index.php?page=mantenimientos');
@@ -154,6 +155,8 @@ class EmpleadoMantenimientoController {
                 ];
             }
 
+            $num_factura = trim($_POST['num_factura'] ?? '');
+
             if ($this->mantenimiento->actualizar(
                 (int)$id,
                 $cliente,
@@ -161,7 +164,8 @@ class EmpleadoMantenimientoController {
                 $idClase,
                 $detalles,
                 $precioTotal,
-                $productos
+                $productos,
+                $num_factura
             )) {
                 header('Location: index.php?page=mantenimientos');
                 exit;

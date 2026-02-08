@@ -23,6 +23,11 @@
         </div>
 
         <div class="campo">
+            <label>Número de factura</label>
+            <input type="text" name="num_factura" value="<?= htmlspecialchars($m['num_factura'] ?? '') ?>">
+        </div>
+
+        <div class="campo">
             <label>Clase de mantenimiento</label>
             <select name="id_clase" id="id_clase" required>
                 <?php foreach ($clases as $c): ?>

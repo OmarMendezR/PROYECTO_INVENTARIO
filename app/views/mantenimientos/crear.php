@@ -21,6 +21,11 @@
         </div>
 
         <div class="campo">
+            <label>Número de factura </label>
+            <input type="text" name="num_factura" value="">
+        </div>
+
+        <div class="campo">
             <label>Clase de mantenimiento</label>
             <select name="id_clase" id="id_clase" required>
                 <option value="" data-precio="0">-- Seleccione --</option>

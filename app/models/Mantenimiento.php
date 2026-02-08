@@ -64,16 +64,16 @@ class Mantenimiento {
     }
 
     // ============================== resto de tus métodos ==============================
-    public function crear($idEmpleado, $cliente, $contacto, $idClase, $detalles, $precio, $productos){
+        public function crear($idEmpleado, $cliente, $contacto, $idClase, $detalles, $precio, $productos, $num_factura){
         try {
             $this->pdo->beginTransaction();
 
             $sql = "INSERT INTO mantenimientos 
-                    (id_empleado, nombre_cliente, contacto_cliente, id_clase, detalles, precio, estado, creado_at)
-                    VALUES (?, ?, ?, ?, ?, ?, 'en_proceso', NOW())";
+                (id_empleado, nombre_cliente, contacto_cliente, id_clase, detalles, precio, estado, creado_at, num_factura)
+                VALUES (?, ?, ?, ?, ?, ?, 'en_proceso', NOW(), ?)";
 
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$idEmpleado, $cliente, $contacto, $idClase, $detalles, $precio]);
+            $stmt->execute([$idEmpleado, $cliente, $contacto, $idClase, $detalles, $precio, $num_factura]);
 
             $idMantenimiento = $this->pdo->lastInsertId();
 
@@ -130,7 +130,7 @@ class Mantenimiento {
         return $m;
     }
 
-    public function actualizar($id, $cliente, $contacto, $idClase, $detalles, $precio, $productos){
+    public function actualizar($id, $cliente, $contacto, $idClase, $detalles, $precio, $productos, $num_factura){
         try {
             $this->pdo->beginTransaction();
 
@@ -159,11 +159,11 @@ class Mantenimiento {
              */
             $sql = "
                 UPDATE mantenimientos 
-                SET nombre_cliente = ?, contacto_cliente = ?, id_clase = ?, detalles = ?, precio = ?
+                SET nombre_cliente = ?, contacto_cliente = ?, id_clase = ?, detalles = ?, precio = ?, num_factura = ?
                 WHERE id_mantenimiento = ?
             ";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$cliente, $contacto, $idClase, $detalles, $precio, $id]);
+            $stmt->execute([$cliente, $contacto, $idClase, $detalles, $precio, $num_factura, $id]);
 
             /**
              * 3️⃣ ELIMINAR PRODUCTOS ANTERIORES

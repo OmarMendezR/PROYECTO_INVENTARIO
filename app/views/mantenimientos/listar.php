@@ -38,6 +38,7 @@ require __DIR__ . '/../layouts/header.php';
         <thead>
             <tr>
                 <th>Cliente</th>
+                <th># Factura</th>
                 <th>Estado</th>
                 <th>Fecha Ingreso</th>
                 <th>Acciones</th>
@@ -48,6 +49,7 @@ require __DIR__ . '/../layouts/header.php';
         <?php foreach ($mantenimientos as $m): ?>
             <tr>
                 <td><?= htmlspecialchars($m['nombre_cliente']) ?></td>
+                <td><?= htmlspecialchars($m['num_factura'] ?? '') ?></td>
                 <td>
                     <form method="POST" action="index.php?page=mantenimientos&action=cambiarEstado&id=<?= $m['id_mantenimiento'] ?>">
                         <select name="estado" onchange="this.form.submit()">
